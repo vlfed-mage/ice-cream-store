@@ -1,33 +1,17 @@
-import React, {Component} from 'react';
+import React from 'react';
 
-import { css } from '@emotion/css';
-import './app.scss'
+import Header from '../structure/header';
+import Footer from '../structure/footer';
+import Main from '../structure/main';
 
-const appStyles = css`
-    margin: 50px auto;
-    width: 100%;
-    max-width: 1440px;
+const App = () => {
+    return (
+        <>
+            <Header />
+            <Main />
+            <Footer />
+        </>
+    );
+};
 
-    .container {
-        background: #1d1e26;
-        border: 4px solid #9580ff;
-        border-radius: 6px;
-        padding: 25px;
-    }
-`;
-
-export default class App extends Component {
-    render() {
-        return (
-            <div className={ appStyles }>
-                <span className='test-node-sass'>sample1</span>
-            </div>
-        );
-
-        // you can use pug(jade) inside react in this way
-
-        // return pug`
-        //     .some-app
-        // `
-    }
-}
+export default App;

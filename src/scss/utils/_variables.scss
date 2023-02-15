@@ -5,13 +5,14 @@
 $base:                  #fff !default;
 $grayBase:              #000 !default;
 
-$grayDarker:            #313131 !default;
+$grayDarker:            #333 !default;
 $grayDark:              #666565 !default;
 $gray:                  #A3A2A2 !default;
 $grayLight:             #bbb !default;
 $grayLighter:           #F7F5F4 !default;
 
-$brandPrimary:          tomato !default;
+$brandPrimary:          #ff71ba !default;
+$brandPurple:           #5c4268 !default;
 
 $overlayColor:          rgba(49, 49, 49, 0.4) !default;
 $boxShadow:             0 4px 16px rgba(245, 87, 84, 0.16) !default;
@@ -55,3 +56,9 @@ $lineHeightBase:        math.div(18, 12) !default;
 $screen_min_768:        768px !default;
 $screen_min_1024:       1024px !default;
 $screen_min_1440:       1440px !default;
+
+
+:root {
+    --container: 1470px;
+    --containerGutter: 30px;
+}
