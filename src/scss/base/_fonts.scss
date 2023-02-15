@@ -29,3 +29,25 @@
     font-display: swap;
 }
 
+/* geomanist */
+
+@font-face {
+    font-family: 'geomanist';
+    src: url('../../fonts/geomanist/geomanist-book.woff2') format('woff2'),
+    url('../../fonts/geomanist/geomanist-book.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* cornerstone */
+
+@font-face {
+    font-family: 'cornerstone';
+    src: url('../../fonts/cornerstone.woff2') format('woff2'),
+    url('../../fonts/cornerstone.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
