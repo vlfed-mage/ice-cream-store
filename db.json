@@ -1,5 +1,5 @@
 {
-  "iceCreams": [
+  "ice-creams": [
     {
       "id": 0,
       "name": "Stripey Madness"
@@ -117,12 +117,12 @@
       "name": "Toxic Sludge"
     }
   ],
-  "menuData": [
+  "menu": [
     {
       "id": 1,
+      "name": "Cherry Blast",
       "iceCream": {
-        "id": 1,
-        "name": "Cherry Blast"
+        "id": 1
       },
       "inStock": true,
       "quantity": 20,
