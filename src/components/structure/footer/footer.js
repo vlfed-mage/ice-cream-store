@@ -5,7 +5,7 @@ import './footer.scss'
 const Footer = () => {
     return (
         <footer className='footer container'>
-            &copy; copyright 2023 | Valdo
+            <span>&copy; copyright 2023 | Valdo</span>
         </footer>
     );
 };
