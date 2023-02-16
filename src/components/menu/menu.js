@@ -1,16 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
+import { useNavigate } from 'react-router-dom';
 
 import './menu.scss';
 import services from '../../services';
 
 import IceCreamImage from '../ice-cream-image';
 import LoadingIndicator from '../loading-indicator';
+import {Link} from 'react-router-dom';
 
 const Menu = () => {
     const [ menu, setMenu ] = useState([]);
     const [ loading, setLoading ] = useState(true);
     const { getData } = services();
+    const navigate = useNavigate();
 
     useEffect(() => {
         let isMounted = true;
@@ -28,9 +31,7 @@ const Menu = () => {
     return (
         <main className='main container'>
             <Helmet>
-                <title>
-                    Rock your taste buds with one of these! | Valdo Ice Cream
-                </title>
+                <title>Rock your taste buds with one of these! | Valdo Ice Cream</title>
             </Helmet>
             <h2 className='main-heading' >Rock your taste buds with one of these!</h2>
             <ul className='menu' >
@@ -40,14 +41,16 @@ const Menu = () => {
                         const { name, id: imageId } = iceCream;
                         return (
                             <li key={ id.toString() }>
-                                <section
+                                <section onClick={ () => navigate(`/menu-items/${ id }`, { replace: true }) }
                                     className='card' >
                                     <div className='card-image-container'>
                                         <IceCreamImage iceCreamId={ imageId } />
                                     </div>
                                     <div className='card-info'>
                                         <h3>
-                                            { name }
+                                            <Link to={ `/menu-items/${ id }` } >
+                                                { name }
+                                            </Link>
                                         </h3>
                                         <div className='card-content' >
                                             <p className='price'>{`$${ price.toFixed(2) }`}</p>
