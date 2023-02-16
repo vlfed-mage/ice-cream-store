@@ -1,7 +1,7 @@
 import React from 'react';
 
 import './header.scss'
-import {Link} from 'react-router-dom';
+import {Link, NavLink} from 'react-router-dom';
 
 const Header = () => {
     return (
@@ -12,6 +12,9 @@ const Header = () => {
                     valdo ice cream
                 </Link>
             </h1>
+            <nav>
+                <NavLink to='/'>Menu</NavLink>
+            </nav>
         </header>
     );
 }
