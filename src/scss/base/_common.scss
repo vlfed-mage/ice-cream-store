@@ -20,6 +20,21 @@ body {
     display: flex;
 }
 
+.main {
+    flex: 1;
+    padding-bottom: 2em;
+    outline: 0;
+
+    &-heading {
+        font-family: 'cornerstone', sans-serif;
+        padding: 1rem 0 2rem;
+        color: #313030;
+        font-size: 1.8em;
+        outline: 0;
+        text-align: center;
+    }
+}
+
 .container {
     width: 100%;
     max-width: var(--container);

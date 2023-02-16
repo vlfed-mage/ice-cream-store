@@ -2,14 +2,14 @@ import React from 'react';
 
 import Header from '../structure/header';
 import Footer from '../structure/footer';
-import Main from '../structure/main';
+import Menu from '../menu';
 
 const App = () => {
 
     return (
         <>
             <Header />
-            <Main />
+            <Menu />
             <Footer />
         </>
     );
