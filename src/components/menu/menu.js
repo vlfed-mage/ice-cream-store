@@ -1,22 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 import './menu.scss';
 import services from '../../services';
 
 import IceCreamImage from '../ice-cream-image';
 import LoadingIndicator from '../loading-indicator';
-import {Link} from 'react-router-dom';
 
 const Menu = () => {
     const [ menu, setMenu ] = useState([]);
     const [ loading, setLoading ] = useState(true);
     const { getData } = services();
     const navigate = useNavigate();
+    const { state, pathname } = useLocation();
 
     useEffect(() => {
         let isMounted = true;
+
+        if (state) {
+            console.warn(`Nothing was found for ${ pathname }${ state.id }` )
+        }
+
         getData('menu').then((data) => {
             if (isMounted) {
                 setMenu(data)
