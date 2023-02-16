@@ -6,8 +6,8 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 
 import ErrorBoundary from './components/error-boundary';
-import App from "./components/app";
 import ScrollToTop from './components/scroll-to-top';
+import App from "./components/app";
 
 ReactDOM.render(
 	<StrictMode>
