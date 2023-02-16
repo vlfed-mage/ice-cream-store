@@ -7,10 +7,8 @@ const Header = () => {
     return (
         <header className='header container'>
             <h1>
-                <Link to='/' >
-                    <img src={ require('../../../images/ice-cream.svg') } alt=''/>
-                    valdo ice cream
-                </Link>
+                <img src={ require('../../../images/ice-cream.svg') } alt=''/>
+                valdo ice cream
             </h1>
             <nav>
                 <NavLink to='/'>Menu</NavLink>
