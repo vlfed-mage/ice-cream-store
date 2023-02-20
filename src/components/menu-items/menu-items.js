@@ -8,7 +8,7 @@ const MenuItems = () => {
     return (
         <Routes>
             <Route path='/' element={ <Menu /> } />
-            <Route path=':id' element={ <EditIceCream /> } />
+            <Route path=':itemId' element={ <EditIceCream /> } />
         </Routes>
     );
 };
