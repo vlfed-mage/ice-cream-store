@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
 import { Link, useLocation } from 'react-router-dom';
@@ -10,19 +10,15 @@ import IceCreamImage from '../ice-cream-image';
 import LoadingIndicator from '../loading-indicator';
 
 const Menu = () => {
-    const [ menu, setMenu ] = useState([]);
+    const [ menu, setMenu ] = useState(null);
     const [ loading, setLoading ] = useState(true);
+    const isMounted = useRef(true);
     const { getData } = services();
     const navigate = useNavigate();
     const { state, pathname } = useLocation();
 
     useEffect(() => {
-        let isMounted = true;
-
-        if (state) {
-            console.warn(`Nothing was found for ${ pathname }${ state.id }` )
-        }
-
+        if (state) console.warn(`Nothing was found for ${ pathname }${ state.id }` );
         getData('menu').then((data) => {
             if (isMounted) {
                 setMenu(data)
@@ -30,7 +26,7 @@ const Menu = () => {
             }
         });
         return () => {
-            isMounted = false;
+            isMounted.current = false;
         };
     }, []);
 
@@ -40,9 +36,9 @@ const Menu = () => {
                 <title>Rock your taste buds with one of these! | Valdo Ice Cream</title>
             </Helmet>
             <h2 className='main-heading' >Rock your taste buds with one of these!</h2>
+            <LoadingIndicator isLoading={ loading } />
             <ul className='menu' >
-                <LoadingIndicator isLoading={ loading } />
-                { menu.length > 0 && !loading ? (
+                { menu && !loading ? (
                     menu.map(({ id, iceCream, inStock, quantity, price, description }) => {
                         const { name, id: imageId } = iceCream;
                         return (
