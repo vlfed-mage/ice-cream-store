@@ -100,9 +100,8 @@
     }
 
     &-content {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
+        display: grid;
+        grid-template-columns: auto 1fr;
         padding: 0.3em 0 0 0;
 
         p {
@@ -144,6 +143,7 @@
             line-height: 1.375em;
             color: rgba(64, 49, 71, 0.9);
             font-size: 0.875em;
+            grid-column: 1/-1;
         }
     }
 }

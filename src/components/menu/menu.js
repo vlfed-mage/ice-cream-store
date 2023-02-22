@@ -12,15 +12,18 @@ import LoadingIndicator from '../loading-indicator';
 const Menu = () => {
     const [ menu, setMenu ] = useState(null);
     const [ loading, setLoading ] = useState(true);
+
     const isMounted = useRef(true);
-    const { getData } = services();
+
     const navigate = useNavigate();
     const { state, pathname } = useLocation();
+
+    const { getData } = services();
 
     useEffect(() => {
         if (state) console.warn(`Nothing was found for ${ pathname }${ state.id }` );
         getData('menu').then((data) => {
-            if (isMounted) {
+            if (isMounted.current) {
                 setMenu(data)
                 setLoading(false)
             }
@@ -43,7 +46,7 @@ const Menu = () => {
                         const { name, id: imageId } = iceCream;
                         return (
                             <li key={ id.toString() }>
-                                <section onClick={ () => navigate(`/menu-items/${ id }`, { replace: true }) }
+                                <section onClick={ () => navigate(`/menu-items/${ id }`) }
                                     className='card' >
                                     <div className='card-image-container'>
                                         <IceCreamImage iceCreamId={ imageId } />

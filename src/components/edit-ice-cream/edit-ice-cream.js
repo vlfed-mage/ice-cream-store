@@ -2,25 +2,36 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 
-import './edit-ice-cream.scss'
+import './edit-ice-cream.scss';
 
 import services from '../../services';
 
 import LoadingIndicator from '../loading-indicator';
 import IceCreamImage from '../ice-cream-image';
+import useUniqueIds from '../hooks/useUniqueIds';
 
 const EditIceCream = () => {
     const [ menuItem, setMenuItem ] = useState(null);
     const [ loading, setLoading ] = useState(true);
+
     const isMounted = useRef(true);
     const navigate = useNavigate();
     const { itemId } = useParams();
 
-    const { getData } = services();
+    const { getData, putData } = services();
+
+
+    useEffect(() => {
+        return () => {
+            isMounted.current = false;
+        }
+    }, []);
 
     useEffect(() => {
         getData('menu', itemId)
-            .then(({ id, iceCream, inStock, quantity, price, description }) => {
+            .then((data) => {
+                const { id, iceCream, inStock, quantity, price, description } = data;
+
                 if (isMounted.current) {
                     setMenuItem({
                         id,
@@ -40,11 +51,45 @@ const EditIceCream = () => {
             })
     }, [itemId]);
 
-    useEffect(() => {
-        return () => {
-            isMounted.current = false
+    const onChangeHandler = ({ target }) => {
+        const newMenuItemData = {
+            ...menuItem,
+            [target.name]: target.type === 'checkbox'
+                ? target.checked
+                : target.value
+        };
+
+        if (target.name === 'quantity') {
+            newMenuItemData.inStock = target.value != '0';
         }
-    }, [])
+
+        if (target.name === 'inStock' && !target.checked) {
+            newMenuItemData.quantity = '0';
+        }
+        
+        setMenuItem(newMenuItemData);
+    },
+
+    onSubmitHandler = (e) => {
+        e.preventDefault();
+
+        const { id, iceCream, inStock, quantity, price, description } = menuItem;
+        
+        const submitItem = {
+            id,
+            iceCream,
+            inStock,
+            quantity: parseInt(quantity),
+            price: parseFloat(price),
+            description
+        }
+
+        putData('menu', submitItem).then(() => {
+            navigate('/', { replace: true })
+        })
+    },
+
+    [ stockId, quantityId, priceId, descriptionId ] = useUniqueIds(4);
 
     return (
         <main className='main container'>
@@ -54,53 +99,64 @@ const EditIceCream = () => {
             <h2 className='main-heading' >Update this beauty</h2>
             <LoadingIndicator isLoading={ loading } />
             { menuItem && !loading &&
-                <>
-                    <div className='form'>
-                        <div className="image-container">
-                            <IceCreamImage iceCreamId={ menuItem.iceCream.id } />
-                        </div>
-                        <div>
-                            <div className="form-container">
-                                <dl>
-                                    <dt>Name: </dt>
-                                    <dd>{ menuItem.iceCream.name }</dd>
-                                </dl>
-                                <form>
-                                    <label>Description: </label>
-                                    <textarea
-                                        name="description"
-                                        rows="3"
-                                        value={ menuItem.description }  />
-                                    <label>In stock: </label>
-                                    <div className="checkbox-wrapper">
-                                        <input
-                                            name="inStock"
-                                            type='checkbox'
-                                            checked={ menuItem.inStock } />
-                                        <div className="checkbox-wrapper-checked" />
-                                    </div>
-                                    <label>Quantity: </label>
-                                    <select
-                                        name="quantity"
-                                        value={ menuItem.quantity } >
-                                        <option value="0">0</option>
-                                        <option value="10">10</option>
-                                        <option value="20">20</option>
-                                        <option value="30">30</option>
-                                        <option value="40">40</option>
-                                        <option value="50">50</option>
-                                    </select>
-                                    <label>Price: </label>
+                <div className='form'>
+                    <div className='image-container'>
+                        <IceCreamImage iceCreamId={ menuItem.iceCream.id } />
+                    </div>
+                    <div>
+                        <div className='form-container'>
+                            <dl>
+                                <dt>Name: </dt>
+                                <dd>{ menuItem.iceCream.name }</dd>
+                            </dl>
+                            <form onSubmit={ onSubmitHandler }>
+                                <label htmlFor={ descriptionId }>Description: </label>
+                                <textarea
+                                    id={ descriptionId }
+                                    name='description'
+                                    rows='3'
+                                    value={ menuItem.description }
+                                    onChange={ onChangeHandler } />
+                                <label htmlFor={ stockId }>In stock: </label>
+                                <div className='checkbox-wrapper'>
                                     <input
-                                        name="price"
-                                        type="number"
-                                        step='0.01'
-                                        value={ menuItem.price } />
-                                </form>
-                            </div>
+                                        id={ stockId }
+                                        name='inStock'
+                                        type='checkbox'
+                                        checked={ menuItem.inStock }
+                                        onChange={ onChangeHandler } />
+                                    <div className='checkbox-wrapper-checked' />
+                                </div>
+                                <label htmlFor={ quantityId } >Quantity: </label>
+                                <select
+                                    id={ quantityId }
+                                    name='quantity'
+                                    value={ menuItem.quantity }
+                                    onChange={ onChangeHandler } >
+                                    <option value='0'>0</option>
+                                    <option value='10'>10</option>
+                                    <option value='20'>20</option>
+                                    <option value='30'>30</option>
+                                    <option value='40'>40</option>
+                                    <option value='50'>50</option>
+                                </select>
+                                <label htmlFor={ priceId } >Price: </label>
+                                <input
+                                    id={ priceId }
+                                    name='price'
+                                    type='number'
+                                    step='0.01'
+                                    value={ menuItem.price }
+                                    onChange={ onChangeHandler } />
+                                <div className='button-container'>
+                                    <button className="ok" type="submit">
+                                        Save
+                                    </button>
+                                </div>
+                            </form>
                         </div>
                     </div>
-                </>
+                </div>
             }
         </main>
     );
