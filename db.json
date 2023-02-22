@@ -125,8 +125,8 @@
         "name": "Cherry Blast"
       },
       "inStock": true,
-      "quantity": 20,
-      "price": 1.51,
+      "quantity": 50,
+      "price": 3.08,
       "description": "Blast your taste buds into fruity space with this vanilla and cherry bomb"
     },
     {
@@ -135,8 +135,8 @@
         "id": 15,
         "name": "Catastrophe"
       },
-      "inStock": true,
-      "quantity": 30,
+      "inStock": false,
+      "quantity": 0,
       "price": 1.64,
       "description": "A feline strawberry cranium, what could possibly go wrong?"
     },
