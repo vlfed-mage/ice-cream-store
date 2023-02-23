@@ -8,13 +8,18 @@ import MenuItems from '../menu-items';
 import Menu from '../menu';
 
 const App = () => {
-
     return (
         <>
             <Header />
             <Routes>
-                <Route path='/' element={ <Menu /> } />
-                <Route path='/menu-items/*' element={ <MenuItems /> } />
+                <Route
+                    path='/'
+                    element={<Menu />}
+                />
+                <Route
+                    path='/menu-items/*'
+                    element={<MenuItems />}
+                />
             </Routes>
             <Footer />
         </>

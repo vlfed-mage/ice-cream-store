@@ -1,4 +1,4 @@
-const { isDev } = require("../helpers/env");
+const { isDev } = require('../helpers/env');
 
 module.exports.loader = {
     test: /\.jsx$/,
@@ -6,7 +6,7 @@ module.exports.loader = {
     use: [
         {
             loader: 'babel-loader',
-            options: isDev ? {} : { cacheDirectory: true }
-        }
-    ]
+            options: isDev ? {} : { cacheDirectory: true },
+        },
+    ],
 };

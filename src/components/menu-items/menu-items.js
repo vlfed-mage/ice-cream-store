@@ -7,8 +7,14 @@ import EditIceCream from '../edit-ice-cream';
 const MenuItems = () => {
     return (
         <Routes>
-            <Route path='/' element={ <Menu /> } />
-            <Route path=':itemId' element={ <EditIceCream /> } />
+            <Route
+                path='/'
+                element={<Menu />}
+            />
+            <Route
+                path=':itemId'
+                element={<EditIceCream />}
+            />
         </Routes>
     );
 };

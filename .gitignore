@@ -1,5 +1,6 @@
 # Folders to ignore
-.idea
+.idea/
+.vscode/
 node_modules
 build
 

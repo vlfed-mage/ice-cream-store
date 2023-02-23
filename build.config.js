@@ -9,13 +9,11 @@ plugins.push(new CleanWebpackPlugin());
 module.exports = {
     target: 'web',
     performance: {
-        maxAssetSize: 500000
+        maxAssetSize: 500000,
     },
     optimization: {
         // minimize: true,
-        minimizer: [
-            js.minify
-        ],
+        minimizer: [js.minify],
         splitChunks: {
             cacheGroups: {
                 vendor: {
@@ -29,4 +27,4 @@ module.exports = {
         // runtimeChunk: 'single'
     },
     plugins,
-}
+};

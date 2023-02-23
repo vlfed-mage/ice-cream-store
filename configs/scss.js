@@ -4,7 +4,7 @@ const { isDev } = require('../helpers/env');
 const { fileName } = require('../helpers/file');
 
 module.exports.cssExtractPlugin = new MiniCssExtractPlugin({
-    filename: `css/${ fileName.replace('[ext]', 'css') }`
+    filename: `css/${fileName.replace('[ext]', 'css')}`,
 });
 
 module.exports.loader = {
@@ -21,16 +21,16 @@ module.exports.loader = {
         },
         {
             loader: 'css-loader',
-            options: { sourceMap: true }
+            options: { sourceMap: true },
         },
         'resolve-url-loader',
         {
             loader: 'postcss-loader',
-            options: { sourceMap: true }
+            options: { sourceMap: true },
         },
         {
             loader: 'sass-loader',
-            options: { sourceMap: true }
-        }
-    ]
+            options: { sourceMap: true },
+        },
+    ],
 };

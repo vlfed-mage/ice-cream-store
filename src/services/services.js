@@ -8,8 +8,8 @@ const services = () => {
         getData: async (name, id = '') => {
             return await get(`${bodyUrl}${name}/${id.toString()}`)
                 .then(response => {
-                    console.log(response)
-                    return response.data
+                    console.log(response);
+                    return response.data;
                 })
                 .catch(err => {
                     throw err;
@@ -22,7 +22,7 @@ const services = () => {
                 .catch(err => {
                     throw err;
                 });
-        }
+        },
     };
 };
 
