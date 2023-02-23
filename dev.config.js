@@ -34,7 +34,7 @@ module.exports = {
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
         new webpack.SourceMapDevToolPlugin({
-            filename: "[file].map"
-        })
-    ]
-}
+            filename: '[file].map',
+        }),
+    ],
+};

@@ -7,20 +7,20 @@ import { HelmetProvider } from 'react-helmet-async';
 
 import ErrorBoundary from './components/error-boundary';
 import ScrollToTop from './components/scroll-to-top';
-import App from "./components/app";
+import App from './components/app';
 
 ReactDOM.render(
-	<StrictMode>
-		<ErrorBoundary>
-			<HelmetProvider>
-				<Router>
-					<ScrollToTop />
-					<App />
-				</Router>
-			</HelmetProvider>
-		</ErrorBoundary>
-	</StrictMode>,
-	document.getElementById('root')
+    <StrictMode>
+        <ErrorBoundary>
+            <HelmetProvider>
+                <Router>
+                    <ScrollToTop />
+                    <App />
+                </Router>
+            </HelmetProvider>
+        </ErrorBoundary>
+    </StrictMode>,
+    document.getElementById('root')
 );
 
 module?.hot.accept();

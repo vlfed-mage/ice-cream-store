@@ -8,8 +8,8 @@ const routes = require('./routes');
 
 const generateHtmlPlugins = () => {
     return glob.sync(PATH.resolve(routes.html, '*.pug')).map(item => {
-        const extension = PATH.extname(item)
-        const name = PATH.basename(item, extension)
+        const extension = PATH.extname(item);
+        const name = PATH.basename(item, extension);
 
         return new HtmlPlugin({
             filename: `${name}.html`,
@@ -29,7 +29,7 @@ module.exports.beautifyHtml = new HtmlBeautifyPlugin({
             indent_with_tabs: true,
             indent_inner_html: true,
             preserve_newlines: true,
-        }
+        },
     },
 });
 
@@ -46,6 +46,6 @@ module.exports.loader = {
                 },
             },
         },
-        'pug-html-loader'
+        'pug-html-loader',
     ],
 };

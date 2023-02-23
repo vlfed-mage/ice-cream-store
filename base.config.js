@@ -9,7 +9,7 @@ const js = require('./configs/js');
 const jsx = require('./configs/jsx');
 const { isDev } = require('./helpers/env');
 
-module.exports = (env) => {
+module.exports = env => {
     const plugins = pug.generateHtmlPlugins();
     plugins.push(scss.cssExtractPlugin);
     plugins.push(pug.beautifyHtml);
@@ -27,22 +27,10 @@ module.exports = (env) => {
             publicPath: isDev ? '/' : ``,
         },
         module: {
-            rules: [
-                js.loader,
-                jsx.loader,
-                scss.loader,
-                pug.loader,
-                images.loader,
-                fonts.loader,
-            ]
+            rules: [js.loader, jsx.loader, scss.loader, pug.loader, images.loader, fonts.loader],
         },
         plugins,
     };
 
-    return merge(
-        config,
-        isDev ?
-            require('./dev.config') :
-            require('./build.config')
-    );
-}
+    return merge(config, isDev ? require('./dev.config') : require('./build.config'));
+};

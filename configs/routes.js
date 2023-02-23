@@ -5,6 +5,6 @@ const routes = {
     src: PATH.resolve(__dirname, '../src'),
     build: PATH.resolve(__dirname, '../build'),
     html: PATH.resolve(__dirname, '../src/templates'),
-}
+};
 
 module.exports = routes;

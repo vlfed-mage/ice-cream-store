@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 import './loading-indicator.scss';
 
-
 const LoadingIndicator = ({ isLoading }) => {
     const [showLoadingMessage, setShowLoadingMessage] = useState(false);
 
@@ -26,15 +25,17 @@ const LoadingIndicator = ({ isLoading }) => {
     }, [isLoading]);
 
     return (
-        showLoadingMessage && <div
-            className='loadingio-spinner-ripple-n24qf7xjqy'
-            aria-live='assertive'
-            aria-atomic='true' >
-            <div className='ldio-zoew23s6me'>
-                <div></div>
-                <div></div>
+        showLoadingMessage && (
+            <div
+                className='loadingio-spinner-ripple-n24qf7xjqy'
+                aria-live='assertive'
+                aria-atomic='true'>
+                <div className='ldio-zoew23s6me'>
+                    <div></div>
+                    <div></div>
+                </div>
             </div>
-        </div>
+        )
     );
 };
 
