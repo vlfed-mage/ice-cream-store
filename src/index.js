@@ -6,7 +6,6 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 
 import ErrorBoundary from './components/error-boundary';
-import ScrollToTop from './components/scroll-to-top';
 import App from './components/app';
 
 ReactDOM.render(
@@ -14,7 +13,6 @@ ReactDOM.render(
         <ErrorBoundary>
             <HelmetProvider>
                 <Router>
-                    <ScrollToTop />
                     <App />
                 </Router>
             </HelmetProvider>

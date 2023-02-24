@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
 import { Link, useLocation } from 'react-router-dom';
 
@@ -8,6 +7,8 @@ import services from '../../services';
 
 import IceCreamImage from '../ice-cream-image';
 import LoadingIndicator from '../loading-indicator';
+import Main from '../structure/main';
+import FocusLink from '../structure/focus-link';
 
 const Menu = () => {
     const [menu, setMenu] = useState(null);
@@ -20,7 +21,10 @@ const Menu = () => {
     const { getData } = services();
 
     useEffect(() => {
-        if (state) console.warn(`Nothing was found for ${pathname}${state.id}`);
+        if (state?.id) {
+            console.warn(`Nothing was found for ${pathname}${state.id}`);
+        }
+
         getData('menu').then(data => {
             if (isMounted.current) {
                 setMenu(data);
@@ -32,13 +36,18 @@ const Menu = () => {
         };
     }, []);
 
+    const onItemClickHandler = to => {
+        history.push(to);
+    };
+
+    const onLinkClickHandler = e => {
+        e.stopPropagation();
+    };
+
     return (
-        <main className='main container'>
-            <Helmet>
-                <title>Rock your taste buds with one of these! | Valdo Ice Cream</title>
-            </Helmet>
-            <h2 className='main-heading'>Rock your taste buds with one of these!</h2>
+        <Main headingText='Rock your taste buds with one of these!'>
             <LoadingIndicator isLoading={loading} />
+
             <ul className='menu'>
                 {menu && !loading
                     ? menu.map(({ id, iceCream, inStock, quantity, price, description }) => {
@@ -46,14 +55,18 @@ const Menu = () => {
                           return (
                               <li key={id.toString()}>
                                   <section
-                                      onClick={() => navigate(`/menu-items/${id}`)}
+                                      onClick={() => onItemClickHandler(`/menu-items/${id}`)}
                                       className='card'>
                                       <div className='card-image-container'>
                                           <IceCreamImage iceCreamId={imageId} />
                                       </div>
                                       <div className='card-info'>
                                           <h3>
-                                              <Link to={`/menu-items/${id}`}>{name}</Link>
+                                              <FocusLink
+                                                  onClick={onLinkClickHandler}
+                                                  to={`/menu-items/${id}`}>
+                                                  {name}
+                                              </FocusLink>
                                           </h3>
                                           <div className='card-content'>
                                               <p className='price'>{`$${price.toFixed(2)}`}</p>
@@ -69,7 +82,7 @@ const Menu = () => {
                       })
                     : !loading && <p>Your menu is empty! The sadness!</p>}
             </ul>
-        </main>
+        </Main>
     );
 };
 

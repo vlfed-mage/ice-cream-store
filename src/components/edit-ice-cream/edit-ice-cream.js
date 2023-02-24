@@ -9,6 +9,7 @@ import services from '../../services';
 import LoadingIndicator from '../loading-indicator';
 import IceCreamImage from '../ice-cream-image';
 import useUniqueIds from '../hooks/useUniqueIds';
+import Main from '../structure/main';
 
 const EditIceCream = () => {
     const [menuItem, setMenuItem] = useState(null);
@@ -45,7 +46,7 @@ const EditIceCream = () => {
             })
             .catch(err => {
                 if (isMounted.current && err.response.status === 404) {
-                    navigate('/', { replace: true, state: { id } });
+                    navigate('/', { replace: true, state: { id, focus: true } });
                 }
             });
     }, [itemId]);
@@ -82,19 +83,18 @@ const EditIceCream = () => {
         };
 
         putData('menu', submitItem).then(() => {
-            navigate('/', { replace: true });
+            navigate('/', { state: { focus: true } });
         });
     };
 
     const [stockId, quantityId, priceId, descriptionId] = useUniqueIds(4);
 
     return (
-        <main className='main container'>
-            <Helmet>
-                <title>Update this beauty | Valdo Ice Cream</title>
-            </Helmet>
-            <h2 className='main-heading'>Update this beauty</h2>
+        <Main
+            headingText='Update this beauty'
+            headingElement='2'>
             <LoadingIndicator isLoading={loading} />
+
             {menuItem && !loading && (
                 <div className='form'>
                     <div className='image-container'>
@@ -160,7 +160,7 @@ const EditIceCream = () => {
                     </div>
                 </div>
             )}
-        </main>
+        </Main>
     );
 };
 
