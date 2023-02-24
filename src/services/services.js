@@ -8,7 +8,6 @@ const services = () => {
         getData: async (name, id = '') => {
             return await get(`${bodyUrl}${name}/${id.toString()}`)
                 .then(response => {
-                    console.log(response);
                     return response.data;
                 })
                 .catch(err => {

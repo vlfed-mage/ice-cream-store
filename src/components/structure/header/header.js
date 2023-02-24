@@ -1,7 +1,9 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 import './header.scss';
-import { NavLink } from 'react-router-dom';
+
+import FocusLink from '../focus-link';
 
 const Header = () => {
     return (
@@ -14,7 +16,11 @@ const Header = () => {
                 valdo ice cream
             </h1>
             <nav>
-                <NavLink to='/'>Menu</NavLink>
+                <FocusLink
+                    to='/'
+                    activeClassName='active'>
+                    Menu
+                </FocusLink>
             </nav>
         </header>
     );

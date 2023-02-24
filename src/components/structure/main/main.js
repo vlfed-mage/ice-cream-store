@@ -1,13 +1,33 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
+import { Helmet } from 'react-helmet-async';
+import { useLocation } from 'react-router-dom';
+
 import './main.scss';
 
-import Menu from '../../menu';
+const Main = ({ headingText, headingElement = 2, children }) => {
+    const location = useLocation();
+    const heading = useRef(null);
+    const H = `h${headingElement}`;
 
-const Main = () => {
+    useEffect(() => {
+        if (location.state?.focus) {
+            heading.current.focus();
+        }
+        window.scrollTo(0, 0);
+    }, [location.state]);
+
     return (
         <main className='main container'>
-            <h2 className='main-heading'>Rock your taste buds with one of these!</h2>
-            <Menu />
+            <Helmet>
+                <title>{headingText} | Valdo ice cream</title>
+            </Helmet>
+            <H
+                className='main-heading'
+                tabIndex='-1'
+                ref={heading}>
+                {headingText}
+            </H>
+            {children}
         </main>
     );
 };
