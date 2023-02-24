@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 import './menu.scss';
 import services from '../../services';
@@ -37,7 +37,7 @@ const Menu = () => {
     }, []);
 
     const onItemClickHandler = to => {
-        history.push(to);
+        navigate(to);
     };
 
     const onLinkClickHandler = e => {
