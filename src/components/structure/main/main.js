@@ -21,10 +21,7 @@ const Main = ({ headingText, headingElement = 2, children }) => {
             <Helmet>
                 <title>{headingText} | Valdo ice cream</title>
             </Helmet>
-            <H
-                className='main-heading'
-                tabIndex='-1'
-                ref={heading}>
+            <H className='main-heading' tabIndex='-1' ref={heading}>
                 {headingText}
             </H>
             {children}

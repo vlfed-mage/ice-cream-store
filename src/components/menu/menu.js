@@ -54,17 +54,13 @@ const Menu = () => {
                           const { name, id: imageId } = iceCream;
                           return (
                               <li key={id.toString()}>
-                                  <section
-                                      onClick={() => onItemClickHandler(`/menu-items/${id}`)}
-                                      className='card'>
+                                  <section className='card' onClick={() => onItemClickHandler(`/menu-items/${id}`)}>
                                       <div className='card-image-container'>
                                           <IceCreamImage iceCreamId={imageId} />
                                       </div>
                                       <div className='card-info'>
                                           <h3>
-                                              <FocusLink
-                                                  onClick={onLinkClickHandler}
-                                                  to={`/menu-items/${id}`}>
+                                              <FocusLink onClick={onLinkClickHandler} to={`/menu-items/${id}`}>
                                                   {name}
                                               </FocusLink>
                                           </h3>
