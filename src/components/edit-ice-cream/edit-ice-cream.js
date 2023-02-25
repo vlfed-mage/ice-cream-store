@@ -90,9 +90,7 @@ const EditIceCream = () => {
     const [stockId, quantityId, priceId, descriptionId] = useUniqueIds(4);
 
     return (
-        <Main
-            headingText='Update this beauty'
-            headingElement='2'>
+        <Main headingText='Update this beauty' headingElement='2'>
             <LoadingIndicator isLoading={loading} />
 
             {menuItem && !loading && (
@@ -149,9 +147,7 @@ const EditIceCream = () => {
                                     onChange={onChangeHandler}
                                 />
                                 <div className='button-container'>
-                                    <button
-                                        className='ok'
-                                        type='submit'>
+                                    <button className='ok' type='submit'>
                                         Save
                                     </button>
                                 </div>

@@ -26,10 +26,7 @@ const LoadingIndicator = ({ isLoading }) => {
 
     return (
         showLoadingMessage && (
-            <div
-                className='loadingio-spinner-ripple-n24qf7xjqy'
-                aria-live='assertive'
-                aria-atomic='true'>
+            <div className='loadingio-spinner-ripple-n24qf7xjqy' aria-live='assertive' aria-atomic='true'>
                 <div className='ldio-zoew23s6me'>
                     <div></div>
                     <div></div>
