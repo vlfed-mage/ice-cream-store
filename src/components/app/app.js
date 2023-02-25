@@ -12,14 +12,8 @@ const App = () => {
         <>
             <Header />
             <Routes>
-                <Route
-                    path='/'
-                    element={<Menu />}
-                />
-                <Route
-                    path='/menu-items/*'
-                    element={<MenuItems />}
-                />
+                <Route path='/' element={<Menu />} />
+                <Route path='/menu-items/*' element={<MenuItems />} />
             </Routes>
             <Footer />
         </>
