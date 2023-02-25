@@ -45,7 +45,8 @@ const EditIceCream = () => {
             })
             .catch(err => {
                 if (isMounted.current && err.response.status === 404) {
-                    navigate('/', { replace: true, state: { id, focus: true } });
+                    console.log(isMounted, err.response.status);
+                    navigate('/', { replace: true, state: { id: itemId, focus: true } });
                 }
             });
     }, [itemId]);
