@@ -141,17 +141,6 @@
       "description": "You'll lose your head over this inverted whisky-vanilla cone"
     },
     {
-      "id": 4,
-      "iceCream": {
-        "id": 4,
-        "name": "Roswell Crash"
-      },
-      "inStock": true,
-      "quantity": 10,
-      "price": 1.82,
-      "description": "A zing of lime straight from Area 51"
-    },
-    {
       "id": 5,
       "iceCream": {
         "id": 27,
