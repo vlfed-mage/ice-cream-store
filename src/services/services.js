@@ -23,15 +23,7 @@ const services = () => {
                 });
         },
 
-        deleteData: async (name, id) => {
-            return await del(`${bodyUrl}${name}/${id.toString()}`)
-                .then(response => {
-                    return response.data;
-                })
-                .catch(err => {
-                    throw err;
-                });
-        },
+        deleteData: async (name, id) => await del(`${bodyUrl}${name}/${id.toString()}`),
     };
 };
 

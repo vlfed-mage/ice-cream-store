@@ -4,8 +4,8 @@ import Header from '../structure/header';
 import Footer from '../structure/footer';
 import { Route, Routes } from 'react-router-dom';
 
-import MenuItems from '../menu-items';
-import Menu from '../menu';
+import IceCreams from '../ice-cream/ice-creams';
+import IceCreamList from '../ice-cream/ice-cream-list';
 
 const App = () => {
     return (
@@ -15,9 +15,9 @@ const App = () => {
             </a>
             <Header />
             <Routes>
-                <Route path='/' element={<Menu />} />
-                <Route path='/menu-items/*' element={<MenuItems />} />
-                <Route path='*' element={<Menu />} />
+                <Route path='/' element={<IceCreamList />} />
+                <Route path='/ice-creams/*' element={<IceCreams />} />
+                <Route path='*' element={<IceCreamList />} />
             </Routes>
             <Footer />
         </>
