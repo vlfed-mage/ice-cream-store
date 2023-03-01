@@ -1,0 +1,22 @@
+.error {
+    input,
+    select,
+    textarea {
+        border: 1px solid #d8474f;
+        background-color: rgba(216, 71, 79, 0.07);
+
+        &:focus {
+            box-shadow: 0 0 0 2px #fff, 0 0 0 4px rgba(216, 71, 79, 1);
+        }
+    }
+
+    &-wrapper {
+        min-height: 2em;
+        padding-top: 0.2em;
+        padding-bottom: 0.5em;
+
+        span {
+            color: #ab131c;
+        }
+    }
+}
