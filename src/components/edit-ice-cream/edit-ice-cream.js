@@ -20,6 +20,7 @@ const EditIceCream = () => {
     const [loading, setLoading] = useState(true);
 
     const isMounted = useRef(true);
+    const formRef = useRef(true);
     const navigate = useNavigate();
     const { itemId } = useParams();
 
@@ -73,16 +74,37 @@ const EditIceCream = () => {
         setMenuItem(newMenuItemData);
     };
 
-    const descriptionError = useValidation(menuItem?.description, validateDescription);
-    const priceError = useValidation(menuItem?.price, validatePrice);
-    const quantityError = useValidation(menuItem?.quantity, validateQuantity, menuItem?.inStock);
+    const [stockId, quantityId, quantityErrorId, priceId, priceErrorId, descriptionId, descriptionErrorId] =
+        useUniqueIds(7);
+
+    const [descriptionError, descriptionErrorConfig] = useValidation(
+        menuItem?.description,
+        descriptionErrorId,
+        submited,
+        validateDescription
+    );
+    const [priceError, priceErrorConfig] = useValidation(menuItem?.price, priceErrorId, submited, validatePrice);
+    const [quantityError, quantityErrorConfig] = useValidation(
+        menuItem?.quantity,
+        quantityErrorId,
+        submited,
+        validateQuantity,
+        false,
+        menuItem?.inStock
+    );
 
     const onSubmitHandler = e => {
         e.preventDefault();
 
         const { id, iceCream, inStock, quantity, price, description } = menuItem;
 
-        if (!descriptionError && !priceError && !quantityError) {
+        if (descriptionError || priceError || quantityError) {
+            setTimeout(() => {
+                // may not work in the next React versions
+                const errorControl = formRef.current.querySelector('[aria-invalid="true"]');
+                errorControl.focus();
+            });
+        } else {
             const submitItem = {
                 id,
                 iceCream,
@@ -100,8 +122,6 @@ const EditIceCream = () => {
         setSubmited(true);
     };
 
-    const [stockId, quantityId, priceId, descriptionId] = useUniqueIds(4);
-
     return (
         <Main headingText='Update this beauty' headingElement='2'>
             <LoadingIndicator isLoading={loading} />
@@ -117,17 +137,22 @@ const EditIceCream = () => {
                                 <dt>Name: </dt>
                                 <dd>{menuItem.iceCream.name}</dd>
                             </dl>
-                            <form onSubmit={onSubmitHandler}>
+                            <form onSubmit={onSubmitHandler} noValidate ref={formRef}>
+                                {/* noValidate attribute needs if you're rolling your own validation, as we are */}
                                 <label htmlFor={descriptionId}>
                                     Description<span aria-hidden='true'>*</span>:{' '}
                                 </label>
-                                <ErrorContainer submited={submited} errorText={descriptionError}>
+                                <ErrorContainer
+                                    submited={submited}
+                                    errorText={descriptionError}
+                                    errorId={descriptionErrorId}>
                                     <textarea
                                         id={descriptionId}
                                         name='description'
                                         rows='3'
                                         value={menuItem.description}
                                         onChange={onChangeHandler}
+                                        {...descriptionErrorConfig}
                                     />
                                 </ErrorContainer>
                                 <label htmlFor={stockId}>In stock: </label>
@@ -142,11 +167,12 @@ const EditIceCream = () => {
                                     <div className='checkbox-wrapper-checked' />
                                 </div>
                                 <label htmlFor={quantityId}>Quantity: </label>
-                                <ErrorContainer submited={submited} errorText={quantityError}>
+                                <ErrorContainer submited={submited} errorText={quantityError} errorId={quantityErrorId}>
                                     <select
                                         id={quantityId}
                                         name='quantity'
                                         value={menuItem.quantity}
+                                        {...quantityErrorConfig}
                                         onChange={onChangeHandler}>
                                         <option value='0'>0</option>
                                         <option value='10'>10</option>
@@ -159,7 +185,7 @@ const EditIceCream = () => {
                                 <label htmlFor={priceId}>
                                     Price<span aria-hidden='true'>*</span>:{' '}
                                 </label>
-                                <ErrorContainer submited={submited} errorText={priceError}>
+                                <ErrorContainer submited={submited} errorText={priceError} errorId={priceId}>
                                     <input
                                         id={priceId}
                                         name='price'
@@ -167,6 +193,7 @@ const EditIceCream = () => {
                                         step='0.01'
                                         value={menuItem.price}
                                         onChange={onChangeHandler}
+                                        {...priceErrorConfig}
                                     />
                                 </ErrorContainer>
                                 <div className='button-container'>
