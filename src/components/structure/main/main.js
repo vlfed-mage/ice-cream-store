@@ -17,7 +17,7 @@ const Main = ({ headingText, headingElement = 2, children }) => {
     }, [location.state]);
 
     return (
-        <main className='main container' id='main'>
+        <main className='main container' tabIndex='-1' id='main'>
             <Helmet>
                 <title>{headingText} | Valdo ice cream</title>
             </Helmet>

@@ -5,13 +5,18 @@ import './edit-ice-cream.scss';
 
 import services from '../../services';
 
+import useUniqueIds from '../hooks/use-unique-ids';
+import useValidation from '../hooks/use-validation';
+import { validateDescription, validatePrice, validateQuantity } from '../../utils/validators';
+
 import LoadingIndicator from '../loading-indicator';
 import IceCreamImage from '../ice-cream-image';
-import useUniqueIds from '../hooks/useUniqueIds';
 import Main from '../structure/main';
+import ErrorContainer from '../error-container';
 
 const EditIceCream = () => {
     const [menuItem, setMenuItem] = useState(null);
+    const [submited, setSubmited] = useState(false);
     const [loading, setLoading] = useState(true);
 
     const isMounted = useRef(true);
@@ -68,23 +73,31 @@ const EditIceCream = () => {
         setMenuItem(newMenuItemData);
     };
 
+    const descriptionError = useValidation(menuItem?.description, validateDescription);
+    const priceError = useValidation(menuItem?.price, validatePrice);
+    const quantityError = useValidation(menuItem?.quantity, validateQuantity, menuItem?.inStock);
+
     const onSubmitHandler = e => {
         e.preventDefault();
 
         const { id, iceCream, inStock, quantity, price, description } = menuItem;
 
-        const submitItem = {
-            id,
-            iceCream,
-            inStock,
-            quantity: parseInt(quantity),
-            price: parseFloat(price),
-            description,
-        };
+        if (!descriptionError && !priceError && !quantityError) {
+            const submitItem = {
+                id,
+                iceCream,
+                inStock,
+                quantity: parseInt(quantity),
+                price: parseFloat(price),
+                description,
+            };
 
-        putData('menu', submitItem).then(() => {
-            navigate('/', { state: { focus: true } });
-        });
+            putData('menu', submitItem).then(() => {
+                navigate('/', { state: { focus: true } });
+            });
+        }
+
+        setSubmited(true);
     };
 
     const [stockId, quantityId, priceId, descriptionId] = useUniqueIds(4);
@@ -105,14 +118,18 @@ const EditIceCream = () => {
                                 <dd>{menuItem.iceCream.name}</dd>
                             </dl>
                             <form onSubmit={onSubmitHandler}>
-                                <label htmlFor={descriptionId}>Description: </label>
-                                <textarea
-                                    id={descriptionId}
-                                    name='description'
-                                    rows='3'
-                                    value={menuItem.description}
-                                    onChange={onChangeHandler}
-                                />
+                                <label htmlFor={descriptionId}>
+                                    Description<span aria-hidden='true'>*</span>:{' '}
+                                </label>
+                                <ErrorContainer submited={submited} errorText={descriptionError}>
+                                    <textarea
+                                        id={descriptionId}
+                                        name='description'
+                                        rows='3'
+                                        value={menuItem.description}
+                                        onChange={onChangeHandler}
+                                    />
+                                </ErrorContainer>
                                 <label htmlFor={stockId}>In stock: </label>
                                 <div className='checkbox-wrapper'>
                                     <input
@@ -125,27 +142,33 @@ const EditIceCream = () => {
                                     <div className='checkbox-wrapper-checked' />
                                 </div>
                                 <label htmlFor={quantityId}>Quantity: </label>
-                                <select
-                                    id={quantityId}
-                                    name='quantity'
-                                    value={menuItem.quantity}
-                                    onChange={onChangeHandler}>
-                                    <option value='0'>0</option>
-                                    <option value='10'>10</option>
-                                    <option value='20'>20</option>
-                                    <option value='30'>30</option>
-                                    <option value='40'>40</option>
-                                    <option value='50'>50</option>
-                                </select>
-                                <label htmlFor={priceId}>Price: </label>
-                                <input
-                                    id={priceId}
-                                    name='price'
-                                    type='number'
-                                    step='0.01'
-                                    value={menuItem.price}
-                                    onChange={onChangeHandler}
-                                />
+                                <ErrorContainer submited={submited} errorText={quantityError}>
+                                    <select
+                                        id={quantityId}
+                                        name='quantity'
+                                        value={menuItem.quantity}
+                                        onChange={onChangeHandler}>
+                                        <option value='0'>0</option>
+                                        <option value='10'>10</option>
+                                        <option value='20'>20</option>
+                                        <option value='30'>30</option>
+                                        <option value='40'>40</option>
+                                        <option value='50'>50</option>
+                                    </select>
+                                </ErrorContainer>
+                                <label htmlFor={priceId}>
+                                    Price<span aria-hidden='true'>*</span>:{' '}
+                                </label>
+                                <ErrorContainer submited={submited} errorText={priceError}>
+                                    <input
+                                        id={priceId}
+                                        name='price'
+                                        type='number'
+                                        step='0.01'
+                                        value={menuItem.price}
+                                        onChange={onChangeHandler}
+                                    />
+                                </ErrorContainer>
                                 <div className='button-container'>
                                     <button className='ok' type='submit'>
                                         Save
