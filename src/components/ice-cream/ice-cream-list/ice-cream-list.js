@@ -2,15 +2,15 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 
-import './menu.scss';
-import services from '../../services';
+import './ice-cream-list.scss';
+import services from '../../../services';
 
 import IceCreamImage from '../ice-cream-image';
-import LoadingIndicator from '../loading-indicator';
-import Main from '../structure/main';
-import FocusLink from '../structure/focus-link';
+import LoadingIndicator from '../../catchers/loading-indicator';
+import Main from '../../structure/main';
+import FocusLink from '../../structure/focus-link';
 
-const Menu = () => {
+const IceCreamList = () => {
     const [menu, setMenu] = useState(null);
     const [loading, setLoading] = useState(true);
     const isMounted = useRef(true);
@@ -48,19 +48,19 @@ const Menu = () => {
         <Main headingText='Rock your taste buds with one of these!'>
             <LoadingIndicator isLoading={loading} />
 
-            <ul className='menu'>
+            <ul className='ice-cream-list'>
                 {menu && !loading
                     ? menu.map(({ id, iceCream, inStock, quantity, price, description }) => {
                           const { name, id: imageId } = iceCream;
                           return (
                               <li key={id.toString()}>
-                                  <section className='card' onClick={() => onItemClickHandler(`/menu-items/${id}`)}>
+                                  <section className='card' onClick={() => onItemClickHandler(`/ice-creams/${id}`)}>
                                       <div className='card-image-container'>
                                           <IceCreamImage iceCreamId={imageId} />
                                       </div>
                                       <div className='card-info'>
                                           <h3>
-                                              <FocusLink onClick={onLinkClickHandler} to={`/menu-items/${id}`}>
+                                              <FocusLink onClick={onLinkClickHandler} to={`/ice-creams/${id}`}>
                                                   {name}
                                               </FocusLink>
                                           </h3>
@@ -82,4 +82,4 @@ const Menu = () => {
     );
 };
 
-export default Menu;
+export default IceCreamList;

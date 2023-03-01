@@ -3,16 +3,16 @@ import { useParams, useNavigate } from 'react-router-dom';
 
 import './edit-ice-cream.scss';
 
-import services from '../../services';
+import services from '../../../services';
 
-import useUniqueIds from '../hooks/use-unique-ids';
-import useValidation from '../hooks/use-validation';
-import { validateDescription, validatePrice, validateQuantity } from '../../utils/validators';
+import useUniqueIds from '../../hooks/use-unique-ids';
+import useValidation from '../../hooks/use-validation';
+import { validateDescription, validatePrice, validateQuantity } from '../../../utils/validators';
 
-import LoadingIndicator from '../loading-indicator';
+import LoadingIndicator from '../../catchers/loading-indicator';
 import IceCreamImage from '../ice-cream-image';
-import Main from '../structure/main';
-import ErrorContainer from '../error-container';
+import Main from '../../structure/main';
+import ErrorContainer from '../../catchers/error-container';
 
 const EditIceCream = () => {
     const [menuItem, setMenuItem] = useState(null);
