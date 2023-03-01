@@ -10,10 +10,14 @@ import Menu from '../menu';
 const App = () => {
     return (
         <>
+            <a className='skip-link' href='#main'>
+                Skip to content
+            </a>
             <Header />
             <Routes>
                 <Route path='/' element={<Menu />} />
                 <Route path='/menu-items/*' element={<MenuItems />} />
+                <Route path='*' element={<Menu />} />
             </Routes>
             <Footer />
         </>
