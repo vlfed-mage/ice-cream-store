@@ -10,7 +10,7 @@ const useValidation = (value, errorId, showError, validationFn, isRequired = tru
     return [
         error,
         {
-            'aria-discribedby': error && showError ? errorId : null,
+            'aria-describedby': error && showError ? errorId : null,
             'aria-invalid': error && showError ? 'true' : 'false',
             'aria-required': isRequired ? 'true' : null,
             required: isRequired,

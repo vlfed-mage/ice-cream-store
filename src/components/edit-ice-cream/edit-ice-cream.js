@@ -24,7 +24,7 @@ const EditIceCream = () => {
     const navigate = useNavigate();
     const { itemId } = useParams();
 
-    const { getData, putData } = services();
+    const { getData, putData, deleteData } = services();
 
     useEffect(() => {
         return () => {
@@ -92,6 +92,12 @@ const EditIceCream = () => {
         false,
         menuItem?.inStock
     );
+
+    const onDeleteHandler = () => {
+        deleteData('menu', itemId).then(() => {
+            navigate('/', { replace: true, state: { focus: true } });
+        });
+    };
 
     const onSubmitHandler = e => {
         e.preventDefault();
@@ -199,6 +205,9 @@ const EditIceCream = () => {
                                 <div className='button-container'>
                                     <button className='ok' type='submit'>
                                         Save
+                                    </button>
+                                    <button className='warning' type='button' onClick={onDeleteHandler}>
+                                        Delete
                                     </button>
                                 </div>
                             </form>
