@@ -6,6 +6,7 @@ import { Route, Routes } from 'react-router-dom';
 
 import IceCreams from '../ice-cream/ice-creams';
 import IceCreamList from '../ice-cream/ice-cream-list';
+import IceCreamStock from '../ice-cream/ice-cream-stock';
 
 const App = () => {
     return (
@@ -16,6 +17,7 @@ const App = () => {
             <Header />
             <Routes>
                 <Route path='/' element={<IceCreamList />} />
+                <Route path='/ice-creams-stock' element={<IceCreamStock />} />
                 <Route path='/ice-creams/*' element={<IceCreams />} />
                 <Route path='*' element={<IceCreamList />} />
             </Routes>

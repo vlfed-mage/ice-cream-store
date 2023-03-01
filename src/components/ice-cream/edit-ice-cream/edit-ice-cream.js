@@ -129,7 +129,7 @@ const EditIceCream = () => {
     };
 
     return (
-        <Main headingText='Update this beauty' headingElement='2'>
+        <Main headingText='Update this beauty'>
             <LoadingIndicator isLoading={loading} />
 
             {menuItem && !loading && (
