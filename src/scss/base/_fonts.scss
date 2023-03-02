@@ -3,7 +3,7 @@
 @font-face {
     font-family: 'Legan';
     src: url('../../fonts/legan/regular/legan.woff2') format('woff2'),
-    url('../../fonts/legan/regular/legan.woff') format('woff');
+        url('../../fonts/legan/regular/legan.woff') format('woff');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
@@ -14,7 +14,7 @@
 @font-face {
     font-family: 'Corsica LX Book';
     src: url('../../fonts/corsicalx/book/corsicalx.woff2') format('woff2'),
-    url('../../fonts/corsicalx/book/corsicalx.woff') format('woff');
+        url('../../fonts/corsicalx/book/corsicalx.woff') format('woff');
     font-style: normal;
     font-weight: 300;
     font-display: swap;
@@ -23,7 +23,7 @@
 @font-face {
     font-family: 'Corsica LX';
     src: url('../../fonts/corsicalx/regular/corsicalx.woff2') format('woff2'),
-    url('../../fonts/corsicalx/regular/corsicalx.woff') format('woff');
+        url('../../fonts/corsicalx/regular/corsicalx.woff') format('woff');
     font-style: normal;
     font-weight: normal;
     font-display: swap;
@@ -34,7 +34,7 @@
 @font-face {
     font-family: 'geomanist';
     src: url('../../fonts/geomanist/geomanist-book.woff2') format('woff2'),
-    url('../../fonts/geomanist/geomanist-book.woff') format('woff');
+        url('../../fonts/geomanist/geomanist-book.woff') format('woff');
     font-weight: 400;
     font-style: normal;
     font-display: swap;
@@ -44,10 +44,8 @@
 
 @font-face {
     font-family: 'cornerstone';
-    src: url('../../fonts/cornerstone.woff2') format('woff2'),
-    url('../../fonts/cornerstone.woff') format('woff');
+    src: url('../../fonts/cornerstone.woff2') format('woff2'), url('../../fonts/cornerstone.woff') format('woff');
     font-weight: 400;
     font-style: normal;
     font-display: swap;
 }
-

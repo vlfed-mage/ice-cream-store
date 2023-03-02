@@ -16,7 +16,7 @@ import ErrorContainer from '../../catchers/error-container';
 
 const EditIceCream = () => {
     const [menuItem, setMenuItem] = useState(null);
-    const [submited, setSubmited] = useState(false);
+    const [submitted, setSubmitted] = useState(false);
     const [loading, setLoading] = useState(true);
 
     const isMounted = useRef(true);
@@ -80,14 +80,14 @@ const EditIceCream = () => {
     const [descriptionError, descriptionErrorConfig] = useValidation(
         menuItem?.description,
         descriptionErrorId,
-        submited,
+        submitted,
         validateDescription
     );
-    const [priceError, priceErrorConfig] = useValidation(menuItem?.price, priceErrorId, submited, validatePrice);
+    const [priceError, priceErrorConfig] = useValidation(menuItem?.price, priceErrorId, submitted, validatePrice);
     const [quantityError, quantityErrorConfig] = useValidation(
         menuItem?.quantity,
         quantityErrorId,
-        submited,
+        submitted,
         validateQuantity,
         false,
         menuItem?.inStock
@@ -125,7 +125,7 @@ const EditIceCream = () => {
             });
         }
 
-        setSubmited(true);
+        setSubmitted(true);
     };
 
     return (
@@ -140,7 +140,7 @@ const EditIceCream = () => {
                     <div>
                         <div className='form-container'>
                             <dl>
-                                <dt>Name: </dt>
+                                <dt>Name:</dt>
                                 <dd>{menuItem.iceCream.name}</dd>
                             </dl>
                             <form onSubmit={onSubmitHandler} noValidate ref={formRef}>
@@ -149,7 +149,7 @@ const EditIceCream = () => {
                                     Description<span aria-hidden='true'>*</span>:{' '}
                                 </label>
                                 <ErrorContainer
-                                    submited={submited}
+                                    submitted={submitted}
                                     errorText={descriptionError}
                                     errorId={descriptionErrorId}>
                                     <textarea
@@ -173,7 +173,10 @@ const EditIceCream = () => {
                                     <div className='checkbox-wrapper-checked' />
                                 </div>
                                 <label htmlFor={quantityId}>Quantity: </label>
-                                <ErrorContainer submited={submited} errorText={quantityError} errorId={quantityErrorId}>
+                                <ErrorContainer
+                                    submitted={submitted}
+                                    errorText={quantityError}
+                                    errorId={quantityErrorId}>
                                     <select
                                         id={quantityId}
                                         name='quantity'
@@ -191,7 +194,7 @@ const EditIceCream = () => {
                                 <label htmlFor={priceId}>
                                     Price<span aria-hidden='true'>*</span>:{' '}
                                 </label>
-                                <ErrorContainer submited={submited} errorText={priceError} errorId={priceId}>
+                                <ErrorContainer submitted={submitted} errorText={priceError} errorId={priceId}>
                                     <input
                                         id={priceId}
                                         name='price'
