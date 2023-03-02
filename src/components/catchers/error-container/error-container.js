@@ -2,11 +2,11 @@ import React from 'react';
 
 import './error-container.scss';
 
-const ErrorContainer = ({ errorText, children, submited, errorId }) => {
+const ErrorContainer = ({ errorText, children, submitted, errorId }) => {
     return (
-        <div className={errorText && submited ? 'error' : null}>
+        <div className={errorText && submitted ? 'error' : null}>
             {children}
-            <div className='error-wrapper'>{errorText && submited && <span id={errorId}>{errorText}</span>}</div>
+            <div className='error-wrapper'>{errorText && submitted && <span id={errorId}>{errorText}</span>}</div>
         </div>
     );
 };
