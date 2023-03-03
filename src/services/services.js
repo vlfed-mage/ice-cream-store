@@ -16,6 +16,7 @@ const services = () => {
         },
 
         putData: async (name, data) => {
+            console.log(data);
             return await put(`${bodyUrl}${name}/${data.id.toString()}`, data)
                 .then(response => response.data)
                 .catch(err => {
