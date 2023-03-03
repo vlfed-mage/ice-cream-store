@@ -48,7 +48,7 @@ const IceCreamList = () => {
                             <div className='card-content'>
                                 <p className='price'>{`$${price.toFixed(2)}`}</p>
                                 <p className={`stock ${inStock ? '' : 'out'}`}>
-                                    {inStock ? `${quantity} in stock` : 'Currently out of stock!'}
+                                    {inStock ? `${quantity} in stock` : 'Currently, out of stock!'}
                                 </p>
                                 <p className='description'>{description}</p>
                             </div>
