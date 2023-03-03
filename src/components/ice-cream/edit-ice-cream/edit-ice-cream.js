@@ -5,22 +5,15 @@ import './edit-ice-cream.scss';
 
 import services from '../../../services';
 
-import useUniqueIds from '../../hooks/use-unique-ids';
-import useValidation from '../../hooks/use-validation';
-import { validateDescription, validatePrice, validateQuantity } from '../../../utils/validators';
-
 import LoadingIndicator from '../../catchers/loading-indicator';
-import IceCreamImage from '../ice-cream-image';
 import Main from '../../structure/main';
-import ErrorContainer from '../../catchers/error-container';
+import IceCream from '../ice-cream';
 
 const EditIceCream = () => {
+    const isMounted = useRef(true);
     const [menuItem, setMenuItem] = useState(null);
-    const [submitted, setSubmitted] = useState(false);
     const [loading, setLoading] = useState(true);
 
-    const isMounted = useRef(true);
-    const formRef = useRef(true);
     const navigate = useNavigate();
     const { itemId } = useParams();
 
@@ -34,18 +27,9 @@ const EditIceCream = () => {
 
     useEffect(() => {
         getData('menu', itemId)
-            .then(data => {
-                const { id, iceCream, inStock, quantity, price, description } = data;
-
+            .then(item => {
                 if (isMounted.current) {
-                    setMenuItem({
-                        id,
-                        iceCream,
-                        inStock,
-                        quantity: quantity.toString(),
-                        price: price.toFixed(2),
-                        description,
-                    });
+                    setMenuItem(item);
                     setLoading(false);
                 }
             })
@@ -57,167 +41,22 @@ const EditIceCream = () => {
             });
     }, [itemId]);
 
-    const onChangeHandler = ({ target }) => {
-        const newMenuItemData = {
-            ...menuItem,
-            [target.name]: target.type === 'checkbox' ? target.checked : target.value,
-        };
-
-        if (target.name === 'quantity') {
-            newMenuItemData.inStock = target.value != '0';
-        }
-
-        if (target.name === 'inStock' && !target.checked) {
-            newMenuItemData.quantity = '0';
-        }
-
-        setMenuItem(newMenuItemData);
-    };
-
-    const [stockId, quantityId, quantityErrorId, priceId, priceErrorId, descriptionId, descriptionErrorId] =
-        useUniqueIds(7);
-
-    const [descriptionError, descriptionErrorConfig] = useValidation(
-        menuItem?.description,
-        descriptionErrorId,
-        submitted,
-        validateDescription
-    );
-    const [priceError, priceErrorConfig] = useValidation(menuItem?.price, priceErrorId, submitted, validatePrice);
-    const [quantityError, quantityErrorConfig] = useValidation(
-        menuItem?.quantity,
-        quantityErrorId,
-        submitted,
-        validateQuantity,
-        false,
-        menuItem?.inStock
-    );
-
     const onDeleteHandler = () => {
         deleteData('menu', itemId).then(() => {
             navigate('/', { replace: true, state: { focus: true } });
         });
     };
 
-    const onSubmitHandler = e => {
-        e.preventDefault();
-
-        const { id, iceCream, inStock, quantity, price, description } = menuItem;
-
-        if (descriptionError || priceError || quantityError) {
-            setTimeout(() => {
-                // may not work in the next React versions
-                const errorControl = formRef.current.querySelector('[aria-invalid="true"]');
-                errorControl.focus();
-            });
-        } else {
-            const submitItem = {
-                id,
-                iceCream,
-                inStock,
-                quantity: parseInt(quantity),
-                price: parseFloat(price),
-                description,
-            };
-
-            putData('menu', submitItem).then(() => {
-                navigate('/', { state: { focus: true } });
-            });
-        }
-
-        setSubmitted(true);
+    const onSubmitHandler = updatedItem => {
+        putData('menu', { id: menuItem.id, ...updatedItem }).then(() => {
+            navigate('/', { state: { focus: true } });
+        });
     };
 
     return (
         <Main headingText='Update this beauty'>
             <LoadingIndicator isLoading={loading} />
-
-            {menuItem && !loading && (
-                <div className='form'>
-                    <div className='image-container'>
-                        <IceCreamImage iceCreamId={menuItem.iceCream.id} />
-                    </div>
-                    <div>
-                        <div className='form-container'>
-                            <dl>
-                                <dt>Name:</dt>
-                                <dd>{menuItem.iceCream.name}</dd>
-                            </dl>
-                            <form onSubmit={onSubmitHandler} noValidate ref={formRef}>
-                                {/* noValidate attribute needs if you're rolling your own validation, as we are */}
-                                <label htmlFor={descriptionId}>
-                                    Description<span aria-hidden='true'>*</span>:{' '}
-                                </label>
-                                <ErrorContainer
-                                    submitted={submitted}
-                                    errorText={descriptionError}
-                                    errorId={descriptionErrorId}>
-                                    <textarea
-                                        id={descriptionId}
-                                        name='description'
-                                        rows='3'
-                                        value={menuItem.description}
-                                        onChange={onChangeHandler}
-                                        {...descriptionErrorConfig}
-                                    />
-                                </ErrorContainer>
-                                <label htmlFor={stockId}>In stock: </label>
-                                <div className='checkbox-wrapper'>
-                                    <input
-                                        id={stockId}
-                                        name='inStock'
-                                        type='checkbox'
-                                        checked={menuItem.inStock}
-                                        onChange={onChangeHandler}
-                                    />
-                                    <div className='checkbox-wrapper-checked' />
-                                </div>
-                                <label htmlFor={quantityId}>Quantity: </label>
-                                <ErrorContainer
-                                    submitted={submitted}
-                                    errorText={quantityError}
-                                    errorId={quantityErrorId}>
-                                    <select
-                                        id={quantityId}
-                                        name='quantity'
-                                        value={menuItem.quantity}
-                                        {...quantityErrorConfig}
-                                        onChange={onChangeHandler}>
-                                        <option value='0'>0</option>
-                                        <option value='10'>10</option>
-                                        <option value='20'>20</option>
-                                        <option value='30'>30</option>
-                                        <option value='40'>40</option>
-                                        <option value='50'>50</option>
-                                    </select>
-                                </ErrorContainer>
-                                <label htmlFor={priceId}>
-                                    Price<span aria-hidden='true'>*</span>:{' '}
-                                </label>
-                                <ErrorContainer submitted={submitted} errorText={priceError} errorId={priceId}>
-                                    <input
-                                        id={priceId}
-                                        name='price'
-                                        type='number'
-                                        step='0.01'
-                                        value={menuItem.price}
-                                        onChange={onChangeHandler}
-                                        {...priceErrorConfig}
-                                    />
-                                </ErrorContainer>
-                                <div className='button-container'>
-                                    <button className='ok' type='submit'>
-                                        Save
-                                    </button>
-                                    <button className='warning' type='button' onClick={onDeleteHandler}>
-                                        Delete
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            )}
+            {menuItem && !loading && <IceCream {...menuItem} onDelete={onDeleteHandler} onSubmit={onSubmitHandler} />}
         </Main>
     );
 };
