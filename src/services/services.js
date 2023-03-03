@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const services = () => {
     const bodyUrl = 'http://localhost:5000/api/';
-    const { get, put, delete: del } = axios;
+    const { get, put, delete: del, post } = axios;
 
     return {
         getData: async (name, id = '') => {
@@ -15,8 +15,15 @@ const services = () => {
                 });
         },
 
+        postData: async (name, data) => {
+            return await post(`${bodyUrl}${name}`, data)
+                .then(response => response.data)
+                .catch(err => {
+                    throw err;
+                });
+        },
+
         putData: async (name, data) => {
-            console.log(data);
             return await put(`${bodyUrl}${name}/${data.id.toString()}`, data)
                 .then(response => response.data)
                 .catch(err => {

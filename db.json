@@ -125,9 +125,9 @@
         "name": "Cherry Blast"
       },
       "inStock": true,
-      "quantity": 20,
-      "price": 1.51,
-      "description": "Blast your taste buds into fruity space with this vanilla and cherry bomb"
+      "quantity": 30,
+      "price": 1.59,
+      "description": "Blast your taste buds into fruity space with this vanilla and cherry bomb!"
     },
     {
       "id": 2,
@@ -194,6 +194,17 @@
       "quantity": 20,
       "price": 1.29,
       "description": "Chocolate electricity on a motherboard of raspberry"
+    },
+    {
+      "iceCream": {
+        "id": 2,
+        "name": "Cookie Tower of Power"
+      },
+      "inStock": false,
+      "quantity": 0,
+      "price": 1.23,
+      "description": "Cookie tower of power with amazing chocolate drops",
+      "id": 8
     }
   ]
 }

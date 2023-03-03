@@ -34,7 +34,14 @@ const IceCreamStock = () => {
             {iceCreamStock && !loading ? (
                 <IceCreamCardContainer>
                     {iceCreamStock.map(({ id, name }) => (
-                        <IceCreamCard key={id.toString()} to={`/`} iceCreamId={id} headingName={name}></IceCreamCard>
+                        <IceCreamCard
+                            key={id.toString()}
+                            to={{
+                                pathname: '/ice-creams/add',
+                                search: `?iceCreamId=${id.toString()}`,
+                            }}
+                            iceCreamId={id}
+                            headingName={name}></IceCreamCard>
                     ))}
                 </IceCreamCardContainer>
             ) : (
