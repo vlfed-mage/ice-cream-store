@@ -13,7 +13,10 @@ const Header = () => {
             </h1>
             <nav>
                 <FocusLink to='/' activeClassName='active'>
-                    Menu
+                    Ice-creams
+                </FocusLink>
+                <FocusLink to='/ice-creams-stock' activeClassName='active'>
+                    Add ice cream
                 </FocusLink>
             </nav>
         </header>

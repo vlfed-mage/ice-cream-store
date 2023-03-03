@@ -1,24 +1,24 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
 
 const FocusLink = ({ to, children, activeClassName, ...props }) => {
-    const { state } = useLocation();
-    const params = {
-        to: to,
-        state: state ? { ...state, focus: true } : { focus: true },
-    };
+    const params =
+        typeof to === 'string'
+            ? {
+                  pathname: to,
+                  state: { focus: true },
+              }
+            : {
+                  ...to,
+                  state: to.state ? { ...to.state, focus: true } : { focus: true },
+              };
 
     return activeClassName ? (
-        <NavLink
-            {...props}
-            className={({ isActive }) => (isActive ? activeClassName : undefined)}
-            to={params.to}
-            state={params.state}>
+        <NavLink {...props} className={({ isActive }) => (isActive ? activeClassName : undefined)} to={params}>
             {children}
         </NavLink>
     ) : (
-        <Link {...props} to={params.to} state={params.state}>
+        <Link {...props} to={params.to}>
             {children}
         </Link>
     );

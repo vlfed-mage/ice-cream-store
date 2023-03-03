@@ -3,7 +3,7 @@ import IceCreamImage from '../ice-cream-image';
 import FocusLink from '../../structure/focus-link';
 import { useNavigate } from 'react-router-dom';
 
-const IceCreamCard = ({ children, to, iceCreamId, headingName }) => {
+const IceCreamCard = ({ children, to, search, iceCreamId, headingName }) => {
     const navigate = useNavigate();
 
     const onItemClickHandler = () => {
@@ -21,7 +21,7 @@ const IceCreamCard = ({ children, to, iceCreamId, headingName }) => {
             </div>
             <div className='card-info'>
                 <h3>
-                    <FocusLink onClick={onLinkClickHandler} to={to}>
+                    <FocusLink onClick={onLinkClickHandler} to={to} search={search}>
                         {headingName}
                     </FocusLink>
                 </h3>
